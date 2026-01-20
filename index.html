@@ -3,1823 +3,704 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ремонт квартир под ключ - РемонтПро</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #1e7b7b;
-            --primary-hover: #155f5f;
-            --secondary: #f4a460;
-            --dark: #1a1a1a;
-            --light: #f8f9fa;
-            --text: #333;
-            --border: #e0e0e0;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
-            color: var(--text);
-            background: #fff;
-        }
-
-        .sticky-contact-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 999;
-            display: flex;
-            gap: 12px;
-            flex-direction: column;
-            animation: slideInRight 0.5s ease;
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(100px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .sticky-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 14px 20px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 14px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            text-decoration: none;
-        }
-
-        .sticky-btn:hover {
-            background: var(--primary-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .sticky-btn.telegram {
-            background: #0088cc;
-        }
-
-        .sticky-btn.whatsapp {
-            background: #25d366;
-        }
-
-        .sticky-btn.phone {
-            background: var(--secondary);
-        }
-
-        header {
-            background: white;
-            padding: 20px 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        nav {
-            display: flex;
-            gap: 40px;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: var(--text);
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        nav a:hover {
-            color: var(--primary);
-        }
-
-        .hero {
-            background: linear-gradient(135deg, var(--primary) 0%, #2a9d9d 100%);
-            color: white;
-            padding: 100px 0;
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-
-        .hero p {
-            font-size: 20px;
-            margin-bottom: 40px;
-            opacity: 0.95;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 14px 32px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn-primary {
-            background: var(--secondary);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #e89a50;
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: white;
-            color: var(--primary);
-        }
-
-        .btn-secondary:hover {
-            background: var(--light);
-        }
-
-        .benefits {
-            padding: 60px 0;
-            background: var(--light);
-        }
-
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-
-        .benefit-card {
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
-
-        .benefit-card h3 {
-            margin-bottom: 10px;
-            color: var(--primary);
-        }
-
-        .benefit-card p {
-            color: #666;
-            margin: 0;
-        }
-
-        .services {
-            padding: 80px 0;
-        }
-
-        .section-title {
-            font-size: 36px;
-            text-align: center;
-            margin-bottom: 60px;
-            color: var(--dark);
-            font-weight: 700;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-
-        .service-card {
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-            text-align: center;
-            border: 1px solid var(--border);
-            transition: all 0.3s;
-        }
-
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-        }
-
-        .service-card h3 {
-            margin-bottom: 15px;
-            color: var(--dark);
-        }
-
-        .process-section {
-            padding: 80px 0;
-            background: var(--light);
-        }
-
-        .process-steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-
-        .step {
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
-        }
-
-        .step:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-        }
-
-        .step-number {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 50px;
-            height: 50px;
-            background: var(--primary);
-            color: white;
-            border-radius: 50%;
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-
-        .step h3 {
-            font-size: 20px;
-            margin-bottom: 15px;
-            color: var(--dark);
-        }
-
-        .step p {
-            color: #666;
-            line-height: 1.8;
-            font-size: 14px;
-        }
-
-        /* Карусель фото работ */
-        .portfolio-section {
-            padding: 80px 0;
-            background: var(--light);
-        }
-
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
-        }
-
-        .portfolio-item {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-        }
-
-        .carousel-container {
-            position: relative;
-            width: 100%;
-            height: 400px;
-            overflow: hidden;
-            background: #f0f0f0;
-        }
-
-        .carousel-slide {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .carousel-slide.active {
-            opacity: 1;
-        }
-
-        .carousel-slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .carousel-controls {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 15px;
-            z-index: 10;
-        }
-
-        .carousel-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: none;
-            background: rgba(255, 255, 255, 0.6);
-            color: #333;
-            font-size: 18px;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .carousel-btn:hover {
-            background: rgba(255, 255, 255, 0.9);
-        }
-
-        .portfolio-info {
-            padding: 25px;
-        }
-
-        .portfolio-info h3 {
-            margin-bottom: 10px;
-            color: var(--dark);
-            font-size: 20px;
-        }
-
-        .portfolio-info p {
-            color: #666;
-            font-size: 14px;
-            margin: 0;
-        }
-
-        /* Секция команды */
-        .team-section {
-            padding: 80px 0;
-        }
-
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
-        }
-
-        .team-member {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-            text-align: center;
-            transition: all 0.3s;
-        }
-
-        .team-member:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-        }
-
-        .team-member-photo {
-            width: 100%;
-            height: 300px;
-            overflow: hidden;
-            background: #f0f0f0;
-        }
-
-        .team-member-photo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .team-member-info {
-            padding: 25px;
-        }
-
-        .team-member-info h3 {
-            margin-bottom: 5px;
-            color: var(--dark);
-        }
-
-        .team-member-info p {
-            color: var(--primary);
-            font-size: 14px;
-            margin: 0;
-        }
-
-        /* Отзывы с каруселью */
-        .testimonials-section {
-            padding: 80px 0;
-            background: var(--light);
-        }
-
-        .testimonials-carousel {
-            max-width: 600px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .testimonial-slide {
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-            position: absolute;
-            width: 100%;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .testimonial-slide.active {
-            opacity: 1;
-            position: relative;
-        }
-
-        .testimonial-header {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-            align-items: center;
-        }
-
-        .testimonial-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            overflow: hidden;
-            background: #f0f0f0;
-        }
-
-        .testimonial-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .testimonial-name {
-            flex: 1;
-        }
-
-        .testimonial-name h4 {
-            margin: 0 0 5px 0;
-            color: var(--dark);
-        }
-
-        .testimonial-name p {
-            margin: 0;
-            color: #999;
-            font-size: 13px;
-        }
-
-        .testimonial-rating {
-            font-size: 16px;
-            color: #ffc107;
-        }
-
-        .testimonial-text {
-            color: #666;
-            line-height: 1.8;
-            margin-bottom: 20px;
-            flex: 1;
-        }
-
-        .testimonial-date {
-            color: #999;
-            font-size: 12px;
-        }
-
-        .testimonials-nav {
-            position: absolute;
-            bottom: -60px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 15px;
-        }
-
-        .testimonials-nav button {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid var(--primary);
-            background: white;
-            color: var(--primary);
-            font-size: 18px;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .testimonials-nav button:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        .calculator-section {
-            padding: 80px 0;
-            background: var(--light);
-        }
-
-        .calculator-container {
-            background: white;
-            padding: 50px;
-            border-radius: 12px;
-            max-width: 600px;
-            margin: 0 auto;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-        }
-
-        .calc-group {
-            margin-bottom: 25px;
-        }
-
-        .calc-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--dark);
-        }
-
-        .calc-group input,
-        .calc-group select {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid var(--border);
-            border-radius: 6px;
-            font-size: 16px;
-            transition: border-color 0.3s;
-        }
-
-        .calc-group input:focus,
-        .calc-group select:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-
-        .repair-types {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .repair-option {
-            padding: 15px;
-            border: 2px solid var(--border);
-            border-radius: 6px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            background: white;
-        }
-
-        .repair-option:hover {
-            border-color: var(--primary);
-            background: #f0f8f8;
-        }
-
-        .repair-option input[type="radio"] {
-            display: none;
-        }
-
-        .option-text {
-            font-weight: 600;
-            margin-top: 5px;
-        }
-
-        .calc-result {
-            background: #f0f8f8;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border-left: 4px solid var(--primary);
-            display: none;
-        }
-
-        .calc-result.active {
-            display: block;
-        }
-
-        .result-label {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 5px;
-        }
-
-        .result-value {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .calc-btn {
-            width: 100%;
-            padding: 16px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .calc-btn:hover {
-            background: var(--primary-hover);
-        }
-
-        .faq-section {
-            padding: 80px 0;
-            background: var(--light);
-        }
-
-        .faq-container {
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .faq-item {
-            background: white;
-            margin-bottom: 15px;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        }
-
-        .faq-question {
-            padding: 20px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 600;
-            color: var(--dark);
-            transition: background 0.3s;
-            user-select: none;
-        }
-
-        .faq-question:hover {
-            background: #f5f5f5;
-        }
-
-        .faq-question.active {
-            background: var(--primary);
-            color: white;
-        }
-
-        .faq-arrow {
-            transition: transform 0.3s;
-            font-size: 20px;
-        }
-
-        .faq-question.active .faq-arrow {
-            transform: rotate(180deg);
-        }
-
-        .faq-answer {
-            padding: 0 20px;
-            max-height: 0;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            color: #666;
-        }
-
-        .faq-answer.active {
-            padding: 0 20px 20px 20px;
-            max-height: 500px;
-        }
-
-        footer {
-            background: var(--dark);
-            color: white;
-            padding: 40px 0;
-            text-align: center;
-        }
-
-        footer p {
-            margin-bottom: 10px;
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 32px;
-            }
-
-            nav {
-                display: none;
-            }
-
-            .process-steps,
-            .services-grid,
-            .team-grid,
-            .portfolio-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .calculator-container {
-                padding: 30px 20px;
-            }
-
-            .repair-types {
-                grid-template-columns: 1fr;
-            }
-
-            .sticky-contact-btn {
-                bottom: 20px;
-                right: 20px;
-                gap: 8px;
-            }
-
-            .sticky-btn {
-                padding: 12px 16px;
-                font-size: 12px;
-            }
-        }
-    </style>
+    <meta name="description" content="Профессиональный ремонт квартир под ключ. От косметики до люкса. Гарантия 2 года. Более 100 завершённых проектов.">
+    <meta name="keywords" content="ремонт квартир, ремонт под ключ, отделка, бригада мастеров, ремонт Москва">
+    <meta name="author" content="Компания по ремонту квартир">
+    <meta name="theme-color" content="#2180CD">
+    
+    <!-- Open Graph для соц. сетей -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yoursite.ru/">
+    <meta property="og:title" content="Ремонт квартир под ключ с гарантией">
+    <meta property="og:description" content="От бюджетного до люкс ремонта. Опыт 10+ лет. 100+ проектов. Гарантия 2 года.">
+    <meta property="og:image" content="https://yoursite.ru/images/og-image.jpg">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Ремонт квартир под ключ">
+    <meta name="twitter:description" content="Профессиональный ремонт квартир с гарантией качества">
+    
+    <title>Ремонт квартир под ключ - Профессиональные услуги</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="responsive.css">
+    <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/animations.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Ремонт квартир под ключ",
+      "description": "Профессиональные услуги по ремонту и отделке квартир",
+      "url": "https://yoursite.ru",
+      "telephone": "+7 (XXX) XXX-XX-XX",
+      "email": "info@yoursite.ru",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Москва",
+        "addressCountry": "RU"
+      },
+      "priceRange": "$$",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "120"
+      }
+    }
+    </script>
 </head>
 <body>
-    <div class="sticky-contact-btn">
-        <a href="https://t.me/mpood01" class="sticky-btn telegram">📱 Telegram</a>
-        <a href="https://wa.me/79777529050" class="sticky-btn whatsapp">💬 WhatsApp</a>
-        <a href="tel:+79777529050" class="sticky-btn phone">📞 +79777529050</a>
-    </div>
-
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">🏠 РемонтПро</div>
-                <nav>
-                    <a href="#process">Как мы работаем</a>
-                    <a href="#portfolio">Примеры работ</a>
-                    <a href="#team">Команда</a>
-                    <a href="#testimonials">Отзывы</a>
-                    <a href="#calculator">Расчет</a>
-                </nav>
+    <!-- Навигация -->
+    <header class="header" id="header">
+        <nav class="navbar">
+            <div class="container navbar__content">
+                <div class="navbar__logo">
+                    <img src="images/logo.svg" alt="Logo" class="logo">
+                    <span class="company-name">Ремонт 24/7</span>
+                </div>
+                
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Меню">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                
+                <ul class="navbar__menu" id="navbarMenu">
+                    <li><a href="#about" class="navbar__link">О нас</a></li>
+                    <li><a href="#services" class="navbar__link">Услуги</a></li>
+                    <li><a href="#portfolio" class="navbar__link">Примеры работ</a></li>
+                    <li><a href="#testimonials" class="navbar__link">Отзывы</a></li>
+                    <li><a href="#team" class="navbar__link">Команда</a></li>
+                    <li><a href="#contacts" class="navbar__link">Контакты</a></li>
+                </ul>
+                
+                <button class="btn btn--primary navbar__cta" id="headerCTA">
+                    Написать в Telegram
+                </button>
             </div>
-        </div>
+        </nav>
     </header>
 
-    <section class="hero">
-        <div class="container">
-            <h1>Ремонт квартир «под ключ» в Москве</h1>
-            <p>От заявки до ключей в руках — всё чётко по плану</p>
-            <div class="hero-buttons">
-                <button class="btn btn-primary" onclick="document.getElementById('calculator').scrollIntoView({behavior: 'smooth'})">
-                    💰 Рассчитать стоимость
-                </button>
-                <a href="https://t.me/mpood01" class="btn btn-secondary">
-                    💬 Обсудить проект в Telegram
-                </a>
+    <!-- Героя секция -->
+    <section class="hero" id="hero">
+        <div class="hero__content">
+            <h1 class="hero__title">Ремонт квартир под ключ с гарантией качества</h1>
+            <p class="hero__subtitle">От бюджетного ремонта до люкс-отделки. Мы адаптируем работы под ваш бюджет и сроки</p>
+            <div class="hero__buttons">
+                <button class="btn btn--primary btn--lg" id="heroCTA">Обсудить проект в Telegram</button>
+                <a href="#portfolio" class="btn btn--outline btn--lg">Посмотреть примеры работ</a>
             </div>
+        </div>
+        <div class="hero__image">
+            <img src="images/hero/main.jpg" alt="Красиво отремонтированная квартира" loading="lazy">
         </div>
     </section>
 
-    <section class="benefits">
+    <!-- О нас -->
+    <section class="about" id="about">
         <div class="container">
-            <div class="benefits-grid">
-                <div class="benefit-card">
-                    <h3>✅ Гарантия 2 года</h3>
-                    <p>На всё и везде. Если что-то сломалось — мы исправим.</p>
+            <h2 class="section__title">О нас / Почему мы?</h2>
+            <p class="section__subtitle">Компания с опытом, репутацией и результатами</p>
+            
+            <div class="about__grid">
+                <div class="about__card">
+                    <div class="about__icon">🏆</div>
+                    <h3>Опыт 10+ лет на рынке</h3>
+                    <p>Проверенная компания, а не стартап. Сотни благодарных клиентов за спиной.</p>
                 </div>
-                <div class="benefit-card">
-                    <h3>✅ Прозрачные сметы</h3>
-                    <p>Видите каждый рубль. Скрытых расходов нет.</p>
+                <div class="about__card">
+                    <div class="about__icon">✅</div>
+                    <h3>100+ завершённых проектов</h3>
+                    <p>Каждый проект — на нашем сайте. Видите реальные результаты нашей работы.</p>
                 </div>
-                <div class="benefit-card">
-                    <h3>✅ Ежедневные отчёты</h3>
-                    <p>Фото и видео в Telegram. Знаете всё, что происходит.</p>
+                <div class="about__card">
+                    <div class="about__icon">⏰</div>
+                    <h3>Соблюдение сроков на 99%</h3>
+                    <p>Всё готово в срок. Мы ценим ваше время и планы на переезд.</p>
                 </div>
-                <div class="benefit-card">
-                    <h3>✅ Выполняем в срок</h3>
-                    <p>Уважаем ваше время. Срывов не бывает.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="services">
-        <div class="container">
-            <h2 class="section-title">Три типа ремонта</h2>
-            <div class="services-grid">
-                <div class="service-card">
-                    <h3>💄 Косметический</h3>
-                    <p>Быстрое обновление интерьера без масштабных работ</p>
-                </div>
-                <div class="service-card">
-                    <h3>🔧 Капитальный</h3>
-                    <p>Качественный ремонт с заменой коммуникаций</p>
-                </div>
-                <div class="service-card">
-                    <h3>✨ Люкс</h3>
-                    <p>Полная перепланировка и дизайнерская отделка</p>
+                <div class="about__card">
+                    <div class="about__icon">💰</div>
+                    <h3>Гибкое ценообразование</h3>
+                    <p>От эконома до премиума. Нет минимальной сметы. Работаем с любым бюджетом.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="process-section" id="process">
+    <!-- Услуги -->
+    <section class="services" id="services">
         <div class="container">
-            <h2 class="section-title">Как мы работаем</h2>
-            <div class="process-steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <h3>Заявка</h3>
-                    <p>Оставляете заявку, рассказываете о квартире и задачах. Уточняем все детали по планировке и бюджету.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <h3>Выезд и замер</h3>
-                    <p>Специалист выезжает на объект, делает замеры и фотофиксацию. Обсуждаем варианты.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <h3>Дизайн и смета</h3>
-                    <p>Готовим дизайн-проект и подробную смету с разбивкой по этапам.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <h3>Договор</h3>
-                    <p>Заключаем договор с прописанными сроками, стоимостью и гарантиями.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">5</div>
-                    <h3>Ремонт</h3>
-                    <p>Организуем полный цикл работ. Регулярные фото-отчёты в Telegram.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">6</div>
-                    <h3>Приёмка</h3>
-                    <p>Генеральная уборка и совместная приёмка. Гарантия 2 года.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="portfolio-section" id="portfolio">
-        <div class="container">
-            <h2 class="section-title">Примеры работ</h2>
-            <div class="portfolio-grid">
-                <!-- Ремонт в Хрущёвке -->
-                <div class="portfolio-item">
-                    <div class="carousel-container">
-                        <div class="carousel-slide active">
-                            <img src="images/sp1.jpg" alt="Ремонт в Хрущёвке - фото 1">
-                        </div>
-                        <div class="carousel-slide">
-                            <img src="images/sp2.jpg" alt="Ремонт в Хрущёвке - фото 2">
-                        </div>
-                        <div class="carousel-slide">
-                            <img src="images/kitchen-1.jpg" alt="Ремонт в Хрущёвке - фото 3">
-                        </div>
-                        <div class="carousel-controls">
-                            <button class="carousel-btn" onclick="prevSlide(this)">❮</button>
-                            <button class="carousel-btn" onclick="nextSlide(this)">❯</button>
-                        </div>
-                    </div>
-                    <div class="portfolio-info">
-                        <h3>🏠 Ремонт в Хрущёвке</h3>
-                        <p>Косметический ремонт 2-комнатной квартиры. Переделана разводка, новые полы, свежая отделка.</p>
-                    </div>
-                </div>
-
+            <h2 class="section__title">Наши услуги</h2>
+            <p class="section__subtitle">Три типа ремонта на любой бюджет</p>
+            
+            <div class="services__grid">
                 <!-- Косметический ремонт -->
-                <div class="portfolio-item">
-                    <div class="carousel-container">
-                        <div class="carousel-slide active">
-                            <img src="images/kitchen-3.jpg" alt="Косметический ремонт - фото 1">
-                        </div>
-                        <div class="carousel-slide">
-                            <img src="images/bathroom-3.jpg" alt="Косметический ремонт - фото 2">
-                        </div>
-                        <div class="carousel-slide">
-                            <img src="images/hol-1.jpg" alt="Косметический ремонт - фото 3">
-                        </div>
-                        <div class="carousel-controls">
-                            <button class="carousel-btn" onclick="prevSlide(this)">❮</button>
-                            <button class="carousel-btn" onclick="nextSlide(this)">❯</button>
-                        </div>
+                <div class="service__card">
+                    <div class="service__header">
+                        <h3>Косметический ремонт</h3>
+                        <span class="service__badge">Бюджетный</span>
                     </div>
-                    <div class="portfolio-info">
-                        <h3>🎨 Косметический ремонт</h3>
-                        <p>Обновление кухни и ванной. Новые светильники, свежая краска, современная сантехника.</p>
+                    <p class="service__description">Быстрое обновление интерьера без масштабных работ</p>
+                    <ul class="service__list">
+                        <li>✓ Покраска стен и потолков</li>
+                        <li>✓ Замена обоев</li>
+                        <li>✓ Новые напольные покрытия</li>
+                        <li>✓ Косметический ремонт сантехники</li>
+                    </ul>
+                    <div class="service__price">
+                        <span>от 500 до 1 500 руб./м²</span>
+                        <span>4-6 недель</span>
                     </div>
+                    <button class="btn btn--primary btn--full-width service__cta">Узнать подробнее</button>
                 </div>
 
-                <!-- Дизайнерские проекты -->
-                <div class="portfolio-item">
-                    <div class="carousel-container">
-                        <div class="carousel-slide active">
-                            <img src="images/project1.jpg" alt="Дизайнерский проект - фото 1">
-                        </div>
-                        <div class="carousel-slide">
-                            <img src="images/project2.jpg" alt="Дизайнерский проект - фото 2">
-                        </div>
-                        <div class="carousel-slide">
-                            <img src="images/sp1.jpg" alt="Дизайнерский проект - фото 3">
-                        </div>
-                        <div class="carousel-controls">
-                            <button class="carousel-btn" onclick="prevSlide(this)">❮</button>
-                            <button class="carousel-btn" onclick="nextSlide(this)">❯</button>
-                        </div>
+                <!-- Среднее выполнение -->
+                <div class="service__card service__card--featured">
+                    <div class="service__header">
+                        <h3>Среднее выполнение</h3>
+                        <span class="service__badge service__badge--popular">Популярный</span>
                     </div>
-                    <div class="portfolio-info">
-                        <h3>✨ Дизайнерские проекты</h3>
-                        <p>Люкс ремонт с авторским дизайном. Премиум материалы, нестандартные решения, индивидуальный подход.</p>
+                    <p class="service__description">Качественный ремонт с заменой коммуникаций</p>
+                    <ul class="service__list">
+                        <li>✓ Полный демонтаж</li>
+                        <li>✓ Замена электропроводки и водопровода</li>
+                        <li>✓ Новая отделка стен и полов</li>
+                        <li>✓ Косметический ремонт потолков</li>
+                    </ul>
+                    <div class="service__price">
+                        <span>от 1 500 до 3 500 руб./м²</span>
+                        <span>8-12 недель</span>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="team-section" id="team">
-        <div class="container">
-            <h2 class="section-title">👥 Наша команда</h2>
-            <div class="team-grid">
-                <div class="team-member">
-                    <div class="team-member-photo">
-                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop" alt="Иван - Прораб">
-                    </div>
-                    <div class="team-member-info">
-                        <h3>Иван</h3>
-                        <p>Главный прораб</p>
-                    </div>
+                    <button class="btn btn--primary btn--full-width service__cta">Узнать подробнее</button>
                 </div>
 
-                <div class="team-member">
-                    <div class="team-member-photo">
-                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop" alt="Сергей - Мастер отделки">
+                <!-- Люкс ремонт -->
+                <div class="service__card">
+                    <div class="service__header">
+                        <h3>Люкс / Премиум</h3>
+                        <span class="service__badge">Премиум</span>
                     </div>
-                    <div class="team-member-info">
-                        <h3>Сергей</h3>
-                        <p>Мастер отделки</p>
+                    <p class="service__description">Полная перепланировка и дизайнерская отделка</p>
+                    <ul class="service__list">
+                        <li>✓ Дизайн-проект включён</li>
+                        <li>✓ Все инженерные системы</li>
+                        <li>✓ Премиум-материалы</li>
+                        <li>✓ Авторский надзор</li>
+                    </ul>
+                    <div class="service__price">
+                        <span>от 3 500 руб./м² и выше</span>
+                        <span>по согласованию</span>
                     </div>
-                </div>
-
-                <div class="team-member">
-                    <div class="team-member-photo">
-                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop" alt="Алексей - Электрик">
-                    </div>
-                    <div class="team-member-info">
-                        <h3>Алексей</h3>
-                        <p>Электромонтёр</p>
-                    </div>
-                </div>
-
-                <div class="team-member">
-                    <div class="team-member-photo">
-                        <img src="https://images.unsplash.com/photo-1507009957411-868d73cc4cf1?w=400&h=400&fit=crop" alt="Дмитрий - Сантехник">
-                    </div>
-                    <div class="team-member-info">
-                        <h3>Дмитрий</h3>
-                        <p>Сантехник</p>
-                    </div>
-                </div>
-
-                <div class="team-member">
-                    <div class="team-member-photo">
-                        <img src="https://images.unsplash.com/photo-1500595046891-e51df1bdc82f?w=400&h=400&fit=crop" alt="Павел - Строитель">
-                    </div>
-                    <div class="team-member-info">
-                        <h3>Павел</h3>
-                        <p>Строитель</p>
-                    </div>
-                </div>
-
-                <div class="team-member">
-                    <div class="team-member-photo">
-                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop" alt="Виталий - Дизайнер">
-                    </div>
-                    <div class="team-member-info">
-                        <h3>Виталий</h3>
-                        <p>Дизайнер интерьера</p>
-                    </div>
+                    <button class="btn btn--primary btn--full-width service__cta">Обсудить проект</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="testimonials-section" id="testimonials">
+    <!-- Галерея примеров работ -->
+    <section class="portfolio" id="portfolio">
         <div class="container">
-            <h2 class="section-title">⭐ Отзывы клиентов (30+)</h2>
-            <div class="testimonials-carousel">
-                <div class="testimonial-slide active">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=60&h=60&fit=crop" alt="Мария">
-                        </div>
-                        <div class="testimonial-name">
+            <h2 class="section__title">Примеры наших работ</h2>
+            <p class="section__subtitle">Более 100 завершённых проектов</p>
+            
+            <!-- Фильтры -->
+            <div class="portfolio__filters">
+                <button class="filter-btn active" data-filter="all">Все работы</button>
+                <button class="filter-btn" data-filter="cosmetic">Косметический</button>
+                <button class="filter-btn" data-filter="medium">Среднее</button>
+                <button class="filter-btn" data-filter="premium">Люкс</button>
+            </div>
+            
+            <!-- Галерея -->
+            <div class="gallery" id="gallery">
+                <div class="gallery__item" data-category="cosmetic">
+                    <img src="images/portfolio/1.jpg" alt="Косметический ремонт спальни" loading="lazy">
+                    <div class="gallery__overlay">
+                        <h4>Спальня в хрущёвке</h4>
+                        <p>Косметический ремонт</p>
+                    </div>
+                </div>
+                <div class="gallery__item" data-category="medium">
+                    <img src="images/portfolio/2.jpg" alt="Среднее выполнение - кухня" loading="lazy">
+                    <div class="gallery__overlay">
+                        <h4>Кухня-гостиная</h4>
+                        <p>Среднее выполнение</p>
+                    </div>
+                </div>
+                <div class="gallery__item bathroom-carousel" data-category="premium">
+                    <div class="carousel-container">
+                        <img class="carousel-img" src="images/bathroom/bathroom-1.jpg" alt="Ванная люкс - фото 1" loading="lazy">
+                        <img class="carousel-img hidden" src="images/bathroom/bathroom-2.jpg" alt="Ванная люкс - фото 2" loading="lazy">
+                        <img class="carousel-img hidden" src="images/bathroom/bathroom-3.jpg" alt="Ванная люкс - фото 3" loading="lazy">
+                        <img class="carousel-img hidden" src="images/bathroom/bathroom-4.jpg" alt="Ванная люкс - фото 4" loading="lazy">
+                        <img class="carousel-img hidden" src="images/bathroom/bathroom-5.jpg" alt="Ванная люкс - фото 5" loading="lazy">
+                        <button class="carousel-prev">❮</button>
+                        <button class="carousel-next">❯</button>
+                    </div>
+                    <div class="gallery__overlay">
+                        <h4>Ванная комната люкс</h4>
+                        <p>Премиум отделка</p>
+                    </div>
+                    <div class="gallery__overlay">
+                        <h4>Ванная комната люкс</h4>
+                        <p>Премиум отделка</p>
+                    </div>
+                </div>
+                <!-- Добавьте больше элементов галереи -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Наши проекты (Featured Projects) -->
+    <section class="featured-projects" id="featured">
+        <div class="container">
+            <h2 class="section__title">Наши лучшие проекты</h2>
+            
+            <div class="project">
+                <div class="project__image">
+                    <img src="images/portfolio/project1.jpg" alt="Полная отделка квартиры 85 м²" loading="lazy">
+                </div>
+                <div class="project__content">
+                    <h3>Полная отделка квартиры 85 м² в ЖК Престиж</h3>
+                    <p>Полная переделка квартиры с заменой всех инженерных систем. Демонтаж несущей стены (с разрешением), новая электропроводка, водопровод, отопление.</p>
+                    <div class="project__params">
+                        <span>📐 Площадь: 85 м²</span>
+                        <span>⏱ Сроки: 12 недель</span>
+                        <span>💰 Бюджет: 850 000 руб.</span>
+                    </div>
+                    <p class="project__quote">
+                        <strong>Отзыв клиента:</strong> "Результат превзошёл все ожидания! Квартира выглядит как дизайнерский проект. Спасибо за внимание к деталям!"
+                    </p>
+                    <button class="btn btn--primary project__cta">Узнать о подобном проекте</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Отзывы клиентов -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2 class="section__title">Отзывы наших клиентов</h2>
+            <p class="section__subtitle">Что говорят люди, которые доверили нам ремонт</p>
+            
+            <div class="testimonials__slider" id="testimonialSlider">
+                <div class="testimonial__card">
+                    <div class="testimonial__header">
+                        <img src="images/testimonials/1.jpg" alt="Мария К." class="testimonial__avatar">
+                        <div class="testimonial__info">
                             <h4>Мария К.</h4>
                             <p>Ремонт спальни и гостиной</p>
                         </div>
+                        <div class="testimonial__rating">⭐⭐⭐⭐⭐</div>
                     </div>
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">Искали нормальную бригаду год! Наконец-то нашли. Сделали ремонт быстро, аккуратно и без переделок. Спасибо ребятам!</p>
-                    <p class="testimonial-date">Январь 2026</p>
+                    <p class="testimonial__text">
+                        "Искали нормальную бригаду год. Наконец-то нашли! Сделали ремонт в спальне быстро, аккуратно и без переделок. Результат потрясающий. Спасибо мастерам за внимание и профессионализм!"
+                    </p>
+                    <p class="testimonial__date">Январь 2024</p>
                 </div>
 
-                <div class="testimonial-slide">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop" alt="Иван">
-                        </div>
-                        <div class="testimonial-name">
+                <div class="testimonial__card">
+                    <div class="testimonial__header">
+                        <img src="images/testimonials/2.jpg" alt="Иван П." class="testimonial__avatar">
+                        <div class="testimonial__info">
                             <h4>Иван П.</h4>
                             <p>Косметический ремонт кухни</p>
                         </div>
+                        <div class="testimonial__rating">⭐⭐⭐⭐⭐</div>
                     </div>
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">Результат превзошел ожидания. Всё четко по срокам, без задержек. Материалы качественные. Рекомендую всем знакомым!</p>
-                    <p class="testimonial-date">Декабрь 2025</p>
+                    <p class="testimonial__text">
+                        "Обращались за косметическим ремонтом, в итоге результат превзошел ожидания. Всё четко по срокам, без задержек. Материалы качественные, работа аккуратная. Рекомендуем!"
+                    </p>
+                    <p class="testimonial__date">Декабрь 2023</p>
                 </div>
 
-                <div class="testimonial-slide">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=60&h=60&fit=crop" alt="Александр">
+                <div class="testimonial__card">
+                    <div class="testimonial__header">
+                        <img src="images/testimonials/3.jpg" alt="Алексей Ш." class="testimonial__avatar">
+                        <div class="testimonial__info">
+                            <h4>Алексей Ш.</h4>
+                            <p>Люкс ремонт трёхкомнатной квартиры</p>
                         </div>
-                        <div class="testimonial-name">
-                            <h4>Александр В.</h4>
-                            <p>Люкс ремонт 3-комнатной квартиры</p>
-                        </div>
+                        <div class="testimonial__rating">⭐⭐⭐⭐⭐</div>
                     </div>
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">Люди с хорошей репутацией найти сложно. Эти ребята - исключение. Честные, ответственные, работают как для себя. Советую всем!</p>
-                    <p class="testimonial-date">Ноябрь 2025</p>
-                </div>
-
-                <div class="testimonial-slide">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=60&h=60&fit=crop" alt="Елена">
-                        </div>
-                        <div class="testimonial-name">
-                            <h4>Елена С.</h4>
-                            <p>Капитальный ремонт 2-комнатной квартиры</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">Огромное спасибо за внимание к деталям! Помощь с выбором дизайна, консультации по материалам - всё на высшем уровне!</p>
-                    <p class="testimonial-date">Октябрь 2025</p>
-                </div>
-
-                <div class="testimonial-slide">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://images.unsplash.com/photo-1507009957411-868d73cc4cf1?w=60&h=60&fit=crop" alt="Владимир">
-                        </div>
-                        <div class="testimonial-name">
-                            <h4>Владимир Л.</h4>
-                            <p>Косметический ремонт студии</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">Приходилось ремонтировать квартиры несколько раз. Это лучший опыт из всех! Professionalный подход, вежливый коллектив.</p>
-                    <p class="testimonial-date">Сентябрь 2025</p>
-                </div>
-
-                <div class="testimonial-slide">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://images.unsplash.com/photo-1500595046891-e51df1bdc82f?w=60&h=60&fit=crop" alt="Татьяна">
-                        </div>
-                        <div class="testimonial-name">
-                            <h4>Татьяна М.</h4>
-                            <p>Ремонт ванной комнаты</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">Очень довольны результатом! Смета была точной, работу выполнили в оговоренные сроки. Спасибо за качество!</p>
-                    <p class="testimonial-date">Август 2025</p>
-                </div>
-
-                <div class="testimonial-slide">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=60&h=60&fit=crop" alt="Анна">
-                        </div>
-                        <div class="testimonial-name">
-                            <h4>Анна Н.</h4>
-                            <p>Люкс ремонт квартиры в новостройке</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">Работали по готовому дизайн-проекту. Внимательно отнеслись ко всем моим пожеланиям. Результат потрясающий!</p>
-                    <p class="testimonial-date">Июль 2025</p>
-                </div>
-
-                <div class="testimonial-slide">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop" alt="Петр">
-                        </div>
-                        <div class="testimonial-name">
-                            <h4>Петр Г.</h4>
-                            <p>Капитальный ремонт дома</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">Не ожидал такого качества за эту цену. Уважаю людей, которые честно работают. Рекомендую всем коллегам!</p>
-                    <p class="testimonial-date">Июнь 2025</p>
-                </div>
-
-                <div class="testimonial-slide">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=60&h=60&fit=crop" alt="Ольга">
-                        </div>
-                        <div class="testimonial-name">
-                            <h4>Ольга В.</h4>
-                            <p>Ремонт кухни и коридора</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">Прораб постоянно отправлял фото в Telegram, всегда был на связи. Такой подход к работе редко встречается!</p>
-                    <p class="testimonial-date">Май 2025</p>
-                </div>
-
-                <div class="testimonial-slide">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=60&h=60&fit=crop" alt="Николай">
-                        </div>
-                        <div class="testimonial-name">
-                            <h4>Николай Р.</h4>
-                            <p>Косметический ремонт спальни</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">Всё прошло гладко! Нет никаких претензий. Гарантия на работы даёт уверенность в результате. Спасибо!</p>
-                    <p class="testimonial-date">Апрель 2025</p>
-                </div>
-
-                <!-- Добавляем еще 20 отзывов для достижения 30+ -->
-                <div class="testimonial-slide">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://images.unsplash.com/photo-1507009957411-868d73cc4cf1?w=60&h=60&fit=crop" alt="Галина">
-                        </div>
-                        <div class="testimonial-name">
-                            <h4>Галина Т.</h4>
-                            <p>Ремонт однокомнатной квартиры</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">Обратилась в компанию по рекомендации друзей. Не разочаровалась! Профессионалы своего дела. Спасибо за отличный ремонт!</p>
-                    <p class="testimonial-date">Март 2025</p>
-                </div>
-
-                <div class="testimonial-slide">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://images.unsplash.com/photo-1500595046891-e51df1bdc82f?w=60&h=60&fit=crop" alt="Борис">
-                        </div>
-                        <div class="testimonial-name">
-                            <h4>Борис Ф.</h4>
-                            <p>Люкс ремонт гостиной</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">Был под впечатлением от качества используемых материалов и мастерства исполнения. Очень рекомендую!</p>
-                    <p class="testimonial-date">Февраль 2025</p>
-                </div>
-
-                <div class="testimonial-slide">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=60&h=60&fit=crop" alt="Людмила">
-                        </div>
-                        <div class="testimonial-name">
-                            <h4>Людмила Н.</h4>
-                            <p>Ремонт прихожей и гостиной</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">Очень благодарна команде за внимательное отношение и превосходный результат. Всё как в мечтах!</p>
-                    <p class="testimonial-date">Январь 2025</p>
-                </div>
-
-                <div class="testimonial-slide">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop" alt="Константин">
-                        </div>
-                        <div class="testimonial-name">
-                            <h4>Константин Д.</h4>
-                            <p>Косметический ремонт кухни</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">Потрясающий сервис! Всё быстро, качественно и по честной цене. Спасибо за сотрудничество!</p>
-                    <p class="testimonial-date">Декабрь 2024</p>
-                </div>
-
-                <div class="testimonial-slide">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=60&h=60&fit=crop" alt="Светлана">
-                        </div>
-                        <div class="testimonial-name">
-                            <h4>Светлана К.</h4>
-                            <p>Капитальный ремонт ванной</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">Не знала кому доверить ремонт. РемонтПро - правильный выбор! Честные люди и качественная работа.</p>
-                    <p class="testimonial-date">Ноябрь 2024</p>
-                </div>
-
-                <div class="testimonial-slide">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=60&h=60&fit=crop" alt="Сергей">
-                        </div>
-                        <div class="testimonial-name">
-                            <h4>Сергей О.</h4>
-                            <p>Люкс ремонт 4-комнатной квартиры</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">Работали по моему дизайн-проекту, все предложения воплотили в жизнь. Результат превзошёл ожидания!</p>
-                    <p class="testimonial-date">Октябрь 2024</p>
-                </div>
-
-                <div class="testimonial-slide">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://images.unsplash.com/photo-1507009957411-868d73cc4cf1?w=60&h=60&fit=crop" alt="Юлия">
-                        </div>
-                        <div class="testimonial-name">
-                            <h4>Юлия Б.</h4>
-                            <p>Ремонт спальни и детской</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">Очень довольна работой бригады. Внимательные, аккуратные, ответственные. Рекомендую всем друзьям!</p>
-                    <p class="testimonial-date">Сентябрь 2024</p>
-                </div>
-
-                <div class="testimonial-slide">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://images.unsplash.com/photo-1500595046891-e51df1bdc82f?w=60&h=60&fit=crop" alt="Антон">
-                        </div>
-                        <div class="testimonial-name">
-                            <h4>Антон Э.</h4>
-                            <p>Косметический ремонт студии</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">Ребята умеют работать! Всё сделали качественно и в установленный срок. Спасибо за профессионализм!</p>
-                    <p class="testimonial-date">Август 2024</p>
-                </div>
-
-                <div class="testimonial-slide">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=60&h=60&fit=crop" alt="Ирина">
-                        </div>
-                        <div class="testimonial-name">
-                            <h4>Ирина В.</h4>
-                            <p>Ремонт кухни в новостройке</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">Идеальные парни! Выполнили все требования, смета не превышена. Гарантия даёт уверенность!</p>
-                    <p class="testimonial-date">Июль 2024</p>
-                </div>
-
-                <div class="testimonial-slide">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop" alt="Игорь">
-                        </div>
-                        <div class="testimonial-name">
-                            <h4>Игорь Ш.</h4>
-                            <p>Капитальный ремонт 3-комнатной квартиры</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">Обратился по рекомендации коллеги. Остался доволен! Отличный результат за разумную цену!</p>
-                    <p class="testimonial-date">Июнь 2024</p>
-                </div>
-
-                <div class="testimonial-slide">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=60&h=60&fit=crop" alt="Наталья">
-                        </div>
-                        <div class="testimonial-name">
-                            <h4>Наталья Х.</h4>
-                            <p>Люкс ремонт спальни и гостиной</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">Очень благодарна за внимание к моим требованиям и превосходное исполнение. Рекомендую!</p>
-                    <p class="testimonial-date">Май 2024</p>
-                </div>
-
-                <div class="testimonial-slide">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=60&h=60&fit=crop" alt="Дмитрий">
-                        </div>
-                        <div class="testimonial-name">
-                            <h4>Дмитрий С.</h4>
-                            <p>Ремонт офисного пространства</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">Профессиональный подход и высокое качество работ. Точно в срок, никаких проблем!</p>
-                    <p class="testimonial-date">Апрель 2024</p>
-                </div>
-
-                <div class="testimonial-slide">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://images.unsplash.com/photo-1507009957411-868d73cc4cf1?w=60&h=60&fit=crop" alt="Виктория">
-                        </div>
-                        <div class="testimonial-name">
-                            <h4>Виктория Л.</h4>
-                            <p>Косметический ремонт 2-комнатной квартиры</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">Спасибо за честный подход к работе! Смета совпала с финальной стоимостью. Доверяю этой компании!</p>
-                    <p class="testimonial-date">Март 2024</p>
-                </div>
-
-                <div class="testimonial-slide">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://images.unsplash.com/photo-1500595046891-e51df1bdc82f?w=60&h=60&fit=crop" alt="Валерий">
-                        </div>
-                        <div class="testimonial-name">
-                            <h4>Валерий Г.</h4>
-                            <p>Капитальный ремонт дома с перепланировкой</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">Сложный проект с перепланировкой, но ребята справились блестящно! Очень доволен результатом!</p>
-                    <p class="testimonial-date">Февраль 2024</p>
-                </div>
-
-                <div class="testimonial-slide">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=60&h=60&fit=crop" alt="Евгения">
-                        </div>
-                        <div class="testimonial-name">
-                            <h4>Евгения М.</h4>
-                            <p>Люкс ремонт всей квартиры</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">Воплотили все мои идеи в жизнь! Современный дизайн, качественные материалы, отличное исполнение!</p>
-                    <p class="testimonial-date">Январь 2024</p>
-                </div>
-
-                <div class="testimonial-slide">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop" alt="Лев">
-                        </div>
-                        <div class="testimonial-name">
-                            <h4>Лев А.</h4>
-                            <p>Ремонт кухни и столовой</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">Четкие ребята! Без загвоздок, все обещания выполнили. Ремонт нравится вся семья!</p>
-                    <p class="testimonial-date">Декабрь 2023</p>
-                </div>
-
-                <div class="testimonial-slide">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=60&h=60&fit=crop" alt="Елизавета">
-                        </div>
-                        <div class="testimonial-name">
-                            <h4>Елизавета Р.</h4>
-                            <p>Косметический ремонт однокомнатной квартиры</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">Отличная команда! Помогли выбрать материалы, дали полезные советы. Спасибо за качество!</p>
-                    <p class="testimonial-date">Ноябрь 2023</p>
-                </div>
-
-                <div class="testimonial-slide">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=60&h=60&fit=crop" alt="Раиса">
-                        </div>
-                        <div class="testimonial-name">
-                            <h4>Раиса П.</h4>
-                            <p>Люкс ремонт ванной комнаты</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">Очень доволена работой команды РемонтПро! Профессионально, вежливо, качественно. Спасибо!</p>
-                    <p class="testimonial-date">Октябрь 2023</p>
-                </div>
-
-                <div class="testimonial-slide">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://images.unsplash.com/photo-1507009957411-868d73cc4cf1?w=60&h=60&fit=crop" alt="Марина">
-                        </div>
-                        <div class="testimonial-name">
-                            <h4>Марина Т.</h4>
-                            <p>Капитальный ремонт квартиры в аренду</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">Инвестировать в недвижимость с РемонтПро - безопасно! Качество гарантировано двухлетней гарантией!</p>
-                    <p class="testimonial-date">Сентябрь 2023</p>
-                </div>
-
-                <div class="testimonial-slide">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://images.unsplash.com/photo-1500595046891-e51df1bdc82f?w=60&h=60&fit=crop" alt="Андрей">
-                        </div>
-                        <div class="testimonial-name">
-                            <h4>Андрей Ц.</h4>
-                            <p>Люкс ремонт офисного кабинета</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">Офис переделали - неузнать! Клиенты в восторге от интерьера. Спасибо за профессиональный результат!</p>
-                    <p class="testimonial-date">Август 2023</p>
-                </div>
-
-                <div class="testimonial-slide">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=60&h=60&fit=crop" alt="Ксения">
-                        </div>
-                        <div class="testimonial-name">
-                            <h4>Ксения Ф.</h4>
-                            <p>Ремонт квартиры-студии</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">Взяли студию на сутки - давайте чистить и благоустраивать. РемонтПро справились за неделю!</p>
-                    <p class="testimonial-date">Июль 2023</p>
-                </div>
-
-                <div class="testimonial-slide">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop" alt="Михаил">
-                        </div>
-                        <div class="testimonial-name">
-                            <h4>Михаил З.</h4>
-                            <p>Косметический ремонт коммерческого помещения</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">Для бизнеса нужна надежность - РемонтПро показал именно это. Рекомендую без колебаний!</p>
-                    <p class="testimonial-date">Июнь 2023</p>
-                </div>
-
-                <div class="testimonial-slide">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=60&h=60&fit=crop" alt="Надежда">
-                        </div>
-                        <div class="testimonial-name">
-                            <h4>Надежда Я.</h4>
-                            <p>Люкс ремонт квартиры в ЖК "Современный"</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">Спасибо ребятам за внимание и трудолюбие! Из развалин сделали шедевр. Очень рекомендую!</p>
-                    <p class="testimonial-date">Май 2023</p>
-                </div>
-
-                <div class="testimonial-slide">
-                    <div class="testimonial-header">
-                        <div class="testimonial-avatar">
-                            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=60&h=60&fit=crop" alt="Юрий">
-                        </div>
-                        <div class="testimonial-name">
-                            <h4>Юрий М.</h4>
-                            <p>Капитальный ремонт 2-уровневой квартиры</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">Сложный проект - справились как профессионалы! Спасибо за внимание к деталям и качество!</p>
-                    <p class="testimonial-date">Апрель 2023</p>
+                    <p class="testimonial__text">
+                        "Людей с хорошей репутацией найти сложно. Эти ребята — исключение. Честные, ответственные, качественно работают. Не будут вас обманывать и доделивать. Советую всем!"
+                    </p>
+                    <p class="testimonial__date">Ноябрь 2023</p>
                 </div>
             </div>
-            <div class="testimonials-nav">
-                <button onclick="prevTestimonial()">❮ Предыдущий</button>
-                <button onclick="nextTestimonial()">Следующий ❯</button>
+            
+            <div class="slider__controls">
+                <button class="slider__btn slider__btn--prev" id="prevTestimonial">❮</button>
+                <button class="slider__btn slider__btn--next" id="nextTestimonial">❯</button>
             </div>
         </div>
     </section>
 
-    <section class="calculator-section" id="calculator">
+    <!-- Процесс работы -->
+    <section class="process" id="process">
         <div class="container">
-            <h2 class="section-title">💰 Рассчитать стоимость</h2>
-            <div class="calculator-container">
-                <div class="calc-group">
-                    <label>Выберите тип ремонта:</label>
-                    <div class="repair-types">
-                        <div class="repair-option" onclick="selectRepair('cosmetic')">
-                            <input type="radio" name="repair_type" id="cosmetic" value="cosmetic" onchange="calculateCost()">
-                            <div class="option-text">💄 Косметический</div>
-                            <small>3 000-5 000 ₽/м²</small>
-                        </div>
-                        <div class="repair-option" onclick="selectRepair('capital')">
-                            <input type="radio" name="repair_type" id="capital" value="capital" onchange="calculateCost()">
-                            <div class="option-text">🔧 Капитальный</div>
-                            <small>8 000-15 000 ₽/м²</small>
-                        </div>
-                        <div class="repair-option" onclick="selectRepair('luxury')">
-                            <input type="radio" name="repair_type" id="luxury" value="luxury" onchange="calculateCost()">
-                            <div class="option-text">✨ Люкс</div>
-                            <small>20 000-40 000 ₽/м²</small>
-                        </div>
-                    </div>
+            <h2 class="section__title">Как мы работаем</h2>
+            <p class="section__subtitle">Прозрачный процесс от первого контакта до сдачи</p>
+            
+            <div class="process__timeline">
+                <div class="process__step">
+                    <div class="process__number">1</div>
+                    <h3>Консультация и смета</h3>
+                    <p>Вы пишете нам в Telegram, описываете проект, мы расчитываем смету и отправляем её в течение часа.</p>
                 </div>
-
-                <div class="calc-group">
-                    <label for="area">Площадь квартиры (м²):</label>
-                    <input type="number" id="area" min="10" max="500" placeholder="Введите площадь" onchange="calculateCost()" oninput="calculateCost()">
+                <div class="process__step">
+                    <div class="process__number">2</div>
+                    <h3>Подготовка проекта</h3>
+                    <p>Согласуем дизайн, материалы, сроки и бюджет. Подписываем договор с подробным описанием работ.</p>
                 </div>
-
-                <div class="calc-result" id="result">
-                    <div class="result-label">Ориентировочная стоимость:</div>
-                    <div class="result-value" id="costValue">0 ₽</div>
-                    <p style="color: #999; font-size: 12px; margin-top: 10px;">*Финальная стоимость рассчитывается после замера</p>
+                <div class="process__step">
+                    <div class="process__number">3</div>
+                    <h3>Подготовка помещения</h3>
+                    <p>Защита мебели, демонтаж старых покрытий, подготовка поверхностей. Всё аккуратно и по плану.</p>
                 </div>
-
-                <button class="calc-btn" onclick="contactUs()">📞 Получить точную смету</button>
-            </div>
-        </div>
-    </section>
-
-    <section class="faq-section" id="faq">
-        <div class="container">
-            <h2 class="section-title">❓ Часто задаваемые вопросы</h2>
-            <div class="faq-container">
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>Какой минимальный бюджет для ремонта?</span>
-                        <span class="faq-arrow">▼</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Нет минимальной сметы. Работаем с любым бюджетом — от косметического ремонта до премиум отделки.</p>
-                    </div>
+                <div class="process__step">
+                    <div class="process__number">4</div>
+                    <h3>Основные работы</h3>
+                    <p>Проведение коммуникаций, отделка стен, укладка полов, установка новых элементов и сантехники.</p>
                 </div>
-
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>Сколько времени занимает ремонт?</span>
-                        <span class="faq-arrow">▼</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Косметический — 2-4 недели, капитальный — 1-2 месяца, люкс — 2-3 месяца. Точные сроки согласовываются в договоре.</p>
-                    </div>
+                <div class="process__step">
+                    <div class="process__number">5</div>
+                    <h3>Финишная отделка</h3>
+                    <p>Покраска, укладка плитки, монтаж дверей, плинтусов и всех элементов декора. Финальная уборка.</p>
                 </div>
-
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>Нужно ли платить авансом?</span>
-                        <span class="faq-arrow">▼</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Обычный авансом — 20-30% для закупки материалов. Остаток платится по мере выполнения работ этапами.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>Даёте ли вы гарантию?</span>
-                        <span class="faq-arrow">▼</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Да, мы предоставляем гарантию на все работы на срок 2 года. Если возникнет проблема — мы бесплатно исправим.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>Можете ли вы работать с моим дизайнером?</span>
-                        <span class="faq-arrow">▼</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Да, без проблем! Мы работаем по готовым проектам. Нужна только подробная смета, чертежи и спецификация материалов.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>Как часто вы отчитываетесь о ходе работ?</span>
-                        <span class="faq-arrow">▼</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Ежедневно! Прораб отправляет фотографии и видео в Telegram/WhatsApp. Вы всегда знаете, что происходит на объекте.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>Какие материалы вы используете?</span>
-                        <span class="faq-arrow">▼</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Только сертифицированные материалы с документами качества. Перед покупкой согласовываем с вами.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>Есть ли скрытые расходы?</span>
-                        <span class="faq-arrow">▼</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Нет! Смета составляется после замера и учитывает все работы. Изменения цены происходят только если вы добавляете новые работы.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>Как получить бесплатную консультацию?</span>
-                        <span class="faq-arrow">▼</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Напишите в Telegram (@mpood01), WhatsApp (+79777529050) или позвоните (+79777529050). Ответим в течение 5 минут.</p>
-                    </div>
+                <div class="process__step">
+                    <div class="process__number">6</div>
+                    <h3>Сдача и гарантия</h3>
+                    <p>Финальная проверка качества, подписание акта. Гарантийное обслуживание 2 года.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer>
+    <!-- Почему выбирают нас -->
+    <section class="why-us" id="why-us">
         <div class="container">
-            <p>📍 Пресненская набережная, 8 стр. 1, Москва</p>
-            <p>📞 +79777529050 | 💬 @mpood01</p>
-            <p>📧 contact@remontpro.ru</p>
-            <p>⏱️ Среднее время ответа: 5-10 минут</p>
-            <p>© 2026 РемонтПро. Все права защищены.</p>
+            <h2 class="section__title">Почему выбирают нас?</h2>
+            <p class="section__subtitle">Убедительные доводы для сотрудничества</p>
+            
+            <div class="why-us__grid">
+                <div class="why-us__card">
+                    <div class="why-us__icon">💰</div>
+                    <h3>Прозрачное ценообразование</h3>
+                    <p>Точная смета ДО начала работ. Нет неожиданных расходов и доплат. Всё честно.</p>
+                </div>
+                <div class="why-us__card">
+                    <div class="why-us__icon">📋</div>
+                    <h3>Опытная команда</h3>
+                    <p>10+ лет на рынке. Не стартап. За нами — сотни успешных проектов.</p>
+                </div>
+                <div class="why-us__card">
+                    <div class="why-us__icon">✓</div>
+                    <h3>Лицензии и сертификаты</h3>
+                    <p>Каждый сотрудник прошел обучение и имеет документы. Качество гарантировано.</p>
+                </div>
+                <div class="why-us__card">
+                    <div class="why-us__icon">🎯</div>
+                    <h3>Гибкость по бюджету</h3>
+                    <p>От эконома до премиума. Нет минимальной сметы. Работаем с любым бюджетом.</p>
+                </div>
+                <div class="why-us__card">
+                    <div class="why-us__icon">🛡️</div>
+                    <h3>Гарантия 2 года</h3>
+                    <p>Если возникнет проблема — мы бесплатно исправим. Спокойствие гарантировано.</p>
+                </div>
+                <div class="why-us__card">
+                    <div class="why-us__icon">👀</div>
+                    <h3>Контроль качества</h3>
+                    <p>Ежедневные проверки, фотоотчеты, согласование с клиентом на каждом этапе.</p>
+                </div>
+                <div class="why-us__card">
+                    <div class="why-us__icon">💬</div>
+                    <h3>Быстрая поддержка</h3>
+                    <p>Ответим в Telegram за 5 минут. Менеджер всегда на связи и готов помочь.</p>
+                </div>
+                <div class="why-us__card">
+                    <div class="why-us__icon">♻️</div>
+                    <h3>Экологичные материалы</h3>
+                    <p>Только сертифицированные материалы с документами качества. Ваше здоровье в приоритете.</p>
+                </div>
+            </div>
+
+            <!-- Социальное доказательство -->
+            <div class="trust-signals">
+                <div class="trust-signal">
+                    <div class="trust-signal__number">100+</div>
+                    <p>Проектов успешно завершено</p>
+                </div>
+                <div class="trust-signal">
+                    <div class="trust-signal__number">98%</div>
+                    <p>Клиентов рекомендуют нас</p>
+                </div>
+                <div class="trust-signal">
+                    <div class="trust-signal__number">4.9★</div>
+                    <p>Средняя оценка (200+ отзывов)</p>
+                </div>
+                <div class="trust-signal">
+                    <div class="trust-signal__number">10+</div>
+                    <p>Лет на рынке</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Наша команда -->
+    <section class="team" id="team">
+        <div class="container">
+            <h2 class="section__title">Наша команда</h2>
+            <p class="section__subtitle">Профессионалы своего дела, которым можно доверять</p>
+            
+            <div class="team__grid">
+                <div class="team__member">
+                    <img src="images/team/1.jpg" alt="Сергей Петров - Бригадир" class="team__photo">
+                    <h3>Сергей Петров</h3>
+                    <p class="team__role">Бригадир и главный мастер</p>
+                    <p class="team__experience">15 лет опыта</p>
+                    <p class="team__bio">Сергей возглавляет нашу команду. Профессионал с большой буквы, знающий все нюансы ремонта. Лично проверяет качество каждого проекта.</p>
+                    <div class="team__badges">
+                        <span class="badge">✓ Сертифицирован</span>
+                        <span class="badge">150+ проектов</span>
+                    </div>
+                </div>
+
+                <div class="team__member">
+                    <img src="images/team/2.jpg" alt="Александр Козлов - Мастер-отделочник" class="team__photo">
+                    <h3>Александр Козлов</h3>
+                    <p class="team__role">Мастер-отделочник</p>
+                    <p class="team__experience">12 лет опыта</p>
+                    <p class="team__bio">Король отделки. Натяжные потолки, декоративная штукатурка, дизайнерская покраска. Результаты всегда потрясающего качества.</p>
+                    <div class="team__badges">
+                        <span class="badge">✓ Сертифицирован</span>
+                        <span class="badge">130+ проектов</span>
+                    </div>
+                </div>
+
+                <div class="team__member">
+                    <img src="images/team/3.jpg" alt="Иван Соколов - Электромонтер" class="team__photo">
+                    <h3>Иван Соколов</h3>
+                    <p class="team__role">Электромонтер и сантехник</p>
+                    <p class="team__experience">14 лет опыта</p>
+                    <p class="team__bio">Все инженерные системы. Электропроводка, водопровод, вентиляция — всё безопасно и надёжно. Сертифицирован и застрахован.</p>
+                    <div class="team__badges">
+                        <span class="badge">✓ Лицензирован</span>
+                        <span class="badge">140+ проектов</span>
+                    </div>
+                </div>
+
+                <div class="team__member">
+                    <img src="images/team/4.jpg" alt="Анастасия Волкова - Дизайнер" class="team__photo">
+                    <h3>Анастасия Волкова</h3>
+                    <p class="team__role">Дизайнер-консультант</p>
+                    <p class="team__experience">8 лет опыта</p>
+                    <p class="team__bio">Помогает выбрать правильные материалы и стиль. Её идеи воплощаются в жизнь красиво и функционально. Слушает клиента.</p>
+                    <div class="team__badges">
+                        <span class="badge">✓ Сертифицирован</span>
+                        <span class="badge">100+ проектов</span>
+                    </div>
+                </div>
+
+                <div class="team__member">
+                    <img src="images/team/5.jpg" alt="Дмитрий Мартынов - Плиточник" class="team__photo">
+                    <h3>Дмитрий Мартынов</h3>
+                    <p class="team__role">Плиточник и мозаичник</p>
+                    <p class="team__experience">11 лет опыта</p>
+                    <p class="team__bio">Работает с плиткой как художник. Идеально ровные швы, сложные узоры, мозаика. Ванные комнаты выглядят как произведения искусства.</p>
+                    <div class="team__badges">
+                        <span class="badge">✓ Сертифицирован</span>
+                        <span class="badge">120+ проектов</span>
+                    </div>
+                </div>
+
+                <div class="team__member">
+                    <img src="images/team/6.jpg" alt="Юрий Смирнов - Менеджер" class="team__photo">
+                    <h3>Юрий Смирнов</h3>
+                    <p class="team__role">Координатор проектов</p>
+                    <p class="team__experience">9 лет опыта</p>
+                    <p class="team__bio">Следит за тем, чтобы всё шло по плану. Синхронизирует работу всех бригад, следит за сроками и бюджетом. Проекты сдаются точно в срок.</p>
+                    <div class="team__badges">
+                        <span class="badge">✓ Сертифицирован</span>
+                        <span class="badge">110+ проектов</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team__footer">
+                <p>Мы постоянно совершенствуемся. Команда регулярно проходит переподготовку, следит за новыми трендами в ремонте и отделке. Используем современное оборудование. Все работают по единым стандартам качества компании.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Почему выбирают нас - Trust Signals -->
+    <section class="trust-section" id="trust">
+        <div class="container">
+            <h2 class="section__title">Факты, которые говорят сами за себя</h2>
+            
+            <div class="trust-factors">
+                <div class="trust-factor">
+                    <h4>📜 Договор с полным описанием работ</h4>
+                    <p>Юридическая защита для обеих сторон. Вы знаете точно, что получите.</p>
+                </div>
+                <div class="trust-factor">
+                    <h4>💳 Поэтапные платежи</h4>
+                    <p>Вы платите по мере выполнения работ, не авансом. Безопасно для вас.</p>
+                </div>
+                <div class="trust-factor">
+                    <h4>🆓 Смета рассчитывается бесплатно</h4>
+                    <p>Нет обязательств. Без давления. Просто консультация и расчет.</p>
+                </div>
+                <div class="trust-factor">
+                    <h4>👁️ Авторский надзор</h4>
+                    <p>Наш специалист следит за качеством до конца проекта. Ничего не будет упущено.</p>
+                </div>
+                <div class="trust-factor">
+                    <h4>🛠️ Гарантийное обслуживание</h4>
+                    <p>Если что-то сломалось в течение 2 лет — мы отремонтируем бесплатно.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA и Контакты -->
+    <section class="cta" id="contacts">
+        <div class="container">
+            <h2 class="section__title">Готовы начать ремонт своей мечты?</h2>
+            <p class="section__subtitle">Свяжитесь с нами прямо сейчас. Мы бесплатно проконсультируем и расчитаем смету.</p>
+            
+            <div class="cta__buttons">
+                <button class="btn btn--primary btn--lg" id="ctaButtonTelegram">
+                    📱 Написать в Telegram
+                </button>
+                <a href="tel:+79991234567" class="btn btn--outline btn--lg">
+                    ☎️ Позвонить: +7 (999) 123-45-67
+                </a>
+            </div>
+            
+            <p class="cta__note">⏱️ Среднее время ответа: 5-10 минут</p>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <strong>Email:</strong>
+                    <a href="mailto:info@yoursite.ru">info@yoursite.ru</a>
+                </div>
+                <div class="contact-item">
+                    <strong>Telegram:</strong>
+                    <a href="https://t.me/your_username" target="_blank">@your_username</a>
+                </div>
+                <div class="contact-item">
+                    <strong>Адрес:</strong>
+                    <p>г. Москва, ул. Примерная, д. 1</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__section">
+                    <h4>О компании</h4>
+                    <ul>
+                        <li><a href="#about">О нас</a></li>
+                        <li><a href="#team">Наша команда</a></li>
+                        <li><a href="#portfolio">Портфолио</a></li>
+                    </ul>
+                </div>
+                <div class="footer__section">
+                    <h4>Услуги</h4>
+                    <ul>
+                        <li><a href="#services">Все услуги</a></li>
+                        <li><a href="#services">Косметический ремонт</a></li>
+                        <li><a href="#services">Люкс ремонт</a></li>
+                    </ul>
+                </div>
+                <div class="footer__section">
+                    <h4>Контакты</h4>
+                    <ul>
+                        <li><a href="tel:+79991234567">+7 (999) 123-45-67</a></li>
+                        <li><a href="https://t.me/your_username">Telegram</a></li>
+                        <li><a href="mailto:info@yoursite.ru">Email</a></li>
+                    </ul>
+                </div>
+                <div class="footer__section">
+                    <h4>Соцсети</h4>
+                    <div class="social-links">
+                        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a>
+                        <a href="https://vk.com" target="_blank" rel="noopener noreferrer">ВКонтакте</a>
+                        <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">YouTube</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer__bottom">
+                <p>&copy; 2024 Ремонт квартир под ключ. Все права защищены.</p>
+                <div class="footer__links">
+                    <a href="#privacy">Политика конфиденциальности</a>
+                    <a href="#terms">Условия использования</a>
+                </div>
+            </div>
         </div>
     </footer>
 
+    <!-- Кнопка Наверх -->
+    <button class="scroll-to-top" id="scrollToTop" aria-label="Вернуться в начало">↑</button>
+
+    <!-- Модальное окно галереи --> 
+    <div class="modal" id="galleryModal">
+        <span class="modal__close">&times;</span>
+        <img class="modal__image" alt="">
+        <div class="modal__info">
+            <h4 class="modal__title"></h4>
+            <p class="modal__description"></p>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="gallery.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/animations.js"></script> 
+    <script src="js/mobile-menu.js"></script>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
     <script>
-        const repairPrices = {
-            cosmetic: { min: 3000, max: 5000 },
-            capital: { min: 8000, max: 15000 },
-            luxury: { min: 20000, max: 40000 }
-        };
-
-        function selectRepair(type) {
-            document.getElementById(type).checked = true;
-            calculateCost();
-        }
-
-        function calculateCost() {
-            const repairType = document.querySelector('input[name="repair_type"]:checked')?.value;
-            const area = parseFloat(document.getElementById('area').value) || 0;
-
-            if (!repairType || area <= 0) {
-                document.getElementById('result').classList.remove('active');
-                return;
-            }
-
-            const prices = repairPrices[repairType];
-            const minCost = prices.min * area;
-            const maxCost = prices.max * area;
-            const avgCost = Math.round((minCost + maxCost) / 2);
-
-            document.getElementById('costValue').textContent = 
-                `${avgCost.toLocaleString('ru-RU')} ₽`;
-            document.getElementById('result').classList.add('active');
-        }
-
-        function toggleFaq(element) {
-            const question = element;
-            const answer = question.nextElementSibling;
-
-            document.querySelectorAll('.faq-question.active').forEach(q => {
-                if (q !== question) {
-                    q.classList.remove('active');
-                    q.nextElementSibling.classList.remove('active');
-                }
-            });
-
-            question.classList.toggle('active');
-            answer.classList.toggle('active');
-        }
-
-        function contactUs() {
-            const repairType = document.querySelector('input[name="repair_type"]:checked')?.value;
-            const area = document.getElementById('area').value;
-
-            if (!repairType || !area) {
-                alert('Пожалуйста, выберите тип ремонта и площадь');
-                return;
-            }
-
-            const message = `Хотел бы узнать точную смету. Тип ремонта: ${repairType}, площадь: ${area} м²`;
-            window.open(`https://t.me/mpood01?start=${encodeURIComponent(message)}`);
-        }
-
-        // Функции для карусели фото работ
-        function nextSlide(btn) {
-            const container = btn.closest('.carousel-container');
-            const slides = container.querySelectorAll('.carousel-slide');
-            let active = container.querySelector('.carousel-slide.active');
-            let next = active.nextElementSibling || slides[0];
-            active.classList.remove('active');
-            next.classList.add('active');
-        }
-
-        function prevSlide(btn) {
-            const container = btn.closest('.carousel-container');
-            const slides = container.querySelectorAll('.carousel-slide');
-            let active = container.querySelector('.carousel-slide.active');
-            let prev = active.previousElementSibling || slides[slides.length - 1];
-            active.classList.remove('active');
-            prev.classList.add('active');
-        }
-
-        // Функции для карусели отзывов
-        let currentTestimonial = 0;
-        const allTestimonials = document.querySelectorAll('.testimonial-slide');
-        const totalTestimonials = allTestimonials.length;
-
-        function nextTestimonial() {
-            allTestimonials[currentTestimonial].classList.remove('active');
-            currentTestimonial = (currentTestimonial + 1) % totalTestimonials;
-            allTestimonials[currentTestimonial].classList.add('active');
-        }
-
-        function prevTestimonial() {
-            allTestimonials[currentTestimonial].classList.remove('active');
-            currentTestimonial = (currentTestimonial - 1 + totalTestimonials) % totalTestimonials;
-            allTestimonials[currentTestimonial].classList.add('active');
-        }
-
-        // Плавная прокрутка для якорных ссылок
-        document.querySelectorAll('a[href^="#"]').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const target = document.querySelector(link.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
+        window.dataLayer = window.dataLayer || []; 
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
+</body>
+    
+    <!-- Yandex.Metrika -->
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+        ym(XXXXXXXXX, "init", {
+            clickmap:true,
+            trackLinks:true,
+            accurateTrackBounce:true
         });
     </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/XXXXXXXXX" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 </body>
 </html>
